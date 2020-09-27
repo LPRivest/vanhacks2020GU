@@ -21,51 +21,7 @@ app.get('/', function(req, res) {
 
 // -------------------- ADD DATA ------------------------
 
-app.post('/addteacher', function(req, res) {
-    if (!data.hasOwnProperty('teachers')) {
-        data.teachers = []
-    }
-    newTeacherID = data.teachers.length
-
-    let teacher = new model.Teacher(newTeacherID, req.body.name)
-    data.teachers.push(teacher)
-
-    saveData()
-    res.send('OK')
-})
-
-app.post('/addeducator', function(req, res) {
-    if (!data.hasOwnProperty('educators')) {
-        data.educators = []
-    }
-    newEducatorID = data.educators.length
-
-    let educator = new model.Educator(newEducatorID, req.body.name, req.body.isParent, [])
-    data.educators.push(educator)
-
-    saveData()
-    res.send('OK')
-})
-
-app.post('/createclass', function(req, res) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
-        // Error
-        return;
-    }
-    teacher = data.teachers[req.body.teacherID]
-
-    if (!data.courses.hasOwnProperty(req.body.courseID)) {
-        // Error
-        return;
-    }
-
-    course = data.courses[req.body.courseID]
-    teacher.createClass(req.body.course, req.body.studentsIDs)
-
-    saveData()
-    res.send('OK')
-})
-
+// JSON input sample: {"name": "Alice"}
 app.post('/createstudent', function(req, res) {
     if (!data.hasOwnProperty('students')) {
         data.students = []
@@ -79,24 +35,59 @@ app.post('/createstudent', function(req, res) {
     res.send('OK')
 })
 
-// -------------------- MODIFY DATA --------------------------
+// JSON input sample: {"name": "Tanya"}
+app.post('/createteacher', function(req, res) {
+    if (!data.hasOwnProperty('teachers')) {
+        data.teachers = []
+    }
+    newTeacherID = data.teachers.length
 
-function getTeacher(teacherID) {
+    let teacher = new model.Teacher(newTeacherID, req.body.name)
+    data.teachers.push(teacher)
+
+    saveData()
+    res.send('OK')
+})
+
+// JSON input sample: {"name": "Gary", "isParent": true}
+app.post('/createeducator', function(req, res) {
+    if (!data.hasOwnProperty('educators')) {
+        data.educators = []
+    }
+    newEducatorID = data.educators.length
+
+    let educator = new model.Educator(newEducatorID, req.body.name, req.body.isParent, [])
+    data.educators.push(educator)
+
+    saveData()
+    res.send('OK')
+})
+
+// JSON input sample: {"name": "Ms. Frizzle's Math 11", "courseID": 3, "studentIDs": [1, 4, 8]}
+// Note that adding student IDs is option when creating a class, students can always be added to the class later
+// via '/addstudenttoclass'
+app.post('/createclass', function(req, res) {
     if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
         // Error
         return;
     }
-    return data.teachers[req.body.teacherID]
-}
+    teacher = data.teachers[req.body.teacherID]
 
-function getTeacherClass(teacher, classIndex) {
-    if (teacher.classes.length >= req.body.classIndex) {
+    if (!data.courses.hasOwnProperty(req.body.courseID)) {
         // Error
         return;
     }
-    return teacher.classes[req.body.classIndex]
-}
 
+    course = data.courses[req.body.courseID]
+    teacher.createClass(req.body.name, course, req.body.studentIDs)
+
+    saveData()
+    res.send('OK')
+})
+
+// -------------------- MODIFY DATA --------------------------
+
+// JSON input sample: {"teacherID": 7, "classIndex": 2, "studentID": 4}
 app.post('/addstudenttoclass', function(req, res) {
     teacher = getTeacher(req.body.teacherID)
     theClass = getTeacherClass(teacher, req.body.classIndex)
@@ -107,11 +98,14 @@ app.post('/addstudenttoclass', function(req, res) {
     res.send('OK')
 })
 
-
+// Usage: It's recommended you call '/getstudentprogress' first, modify the results, then send the results
+// back as "completedModules". Otherwise you have to populate a bunch of arrays manually and that sucks.
+// In the example below we call that chunk of json <COMPLETED_MODULES>
+// JSON input sample: {"teacherID": 3, "classIndex": 1, "studentID": 3, "completedModules": <COMPLETED_MODULES>}
 app.post('/updatestudentprogress', function(req, res) {
     teacher = getTeacher(req.body.teacherID)
     theClass = getTeacherClass(teacher, req.body.classIndex)
-    studentProgress.updateProgress(req.body.studentID, req.mody.completedModules)
+    studentProgress.updateProgress(req.body.studentID, req.body.completedModules)
 
     saveData()
     res.send('OK')
@@ -119,6 +113,8 @@ app.post('/updatestudentprogress', function(req, res) {
 
 // ----------------------------- QUERY DATA -------------------------------
 
+// JSON input sample: {"classID": 3}
+// Returns a JSON representation of a Course object
 app.post('/getcourseinfo', function(req, res) {
     classID = parseInt(req.body.classID)
     if (data.courses.hasOwnProperty(classID)) {
@@ -126,6 +122,8 @@ app.post('/getcourseinfo', function(req, res) {
     }
 })
 
+// JSON input sample: {"teacherID": 1, "classIndex": 3, "studentID": 10}
+// Returns a JSON representation of a StudentCourseProgress object. It's basically an array of arrays of bools.
 app.post('/getstudentprogress', function(req, res) {
     teacher = getTeacher(req.body.teacherID)
     theClass = getTeacherClass(teacher, req.body.classIndex)
@@ -183,6 +181,22 @@ function saveData() {
             console.log("Successfully wrote JSON data")
         }
     })
+}
+
+function getTeacher(teacherID) {
+    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
+        // Error
+        return;
+    }
+    return data.teachers[req.body.teacherID]
+}
+
+function getTeacherClass(teacher, classIndex) {
+    if (teacher.classes.length >= req.body.classIndex) {
+        // Error
+        return;
+    }
+    return teacher.classes[req.body.classIndex]
 }
 
 app.listen(port)
