@@ -87,6 +87,6 @@ function Home() {
       JSON body: <input type="text" id="endpointbody" /><br /><br />
     <button onClick={handleClick} style={{ marginTop: "40px" }}>Submit API request</button>
   </>;
-
+}
 
 export default App;
