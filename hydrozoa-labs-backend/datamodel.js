@@ -25,8 +25,31 @@ class Educator {
         this.isParent = isParent
     }
 
+    hasStudent(student) {
+        for (let i = 0; i < this.students.length; i++) {
+            if (students[i] == student) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     updateStudentProgress(student, course, completedModules) {
-        // ...
+        if(!this.hasStudent(student)) {
+            this.students.addStudent(student);
+        }
+
+        for (let i = 0; i < this.students.length; i++) {
+            if(student == this.students[i]) {
+
+                for(let j = 0; j < this.students[i].classes.length; j++)
+                    if(students[i].classes[i].course == course) 
+                    {
+                        student[i].classes[i].course.addModule(completedModules);
+                    }
+            }
+        }
     }
 }
 
@@ -38,13 +61,40 @@ class Teacher {
         this.classes = []
     }
 
+    //This is the same function as in Educator - Educator should be a superclass to Teacher and Parent
+    hasStudent(student) {
+        for (let i = 0; i < this.students.length; i++) {
+            if (students[i] == student) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //This is the same function as in Educator - Educator should be a superclass to Teacher and Parent
     updateStudentProgress(student, course, completedModules) {
-        // ...
+        if(!this.hasStudent(student)) {
+            this.students.addStudent(student);
+        }
+
+        for (let i = 0; i < this.students.length; i++) {
+            if(student == this.students[i]) {
+
+                for(let j = 0; j < this.students[i].classes.length; j++)
+                    if(students[i].classes[i].course == course) 
+                    {
+                        student[i].classes[i].course.addModule(completedModules);
+                    }
+            }
+        }
     }
 
     createClass(course, students) {
-        // ...
+        let newClass = new Class(course, this, students);
+        this.classes.push(newClass);
     }
+
 }
 
 // Created automatically when a student is added to a class
