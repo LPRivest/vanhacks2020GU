@@ -19,16 +19,16 @@ class Educator {
         this.id = id
         this.name = name
         this.isParent = isParent
-        this.students = [] 
+        this.studentIDs = [] 
     }
 
-    addStudent(student) {
-        this.students.push(student)
+    addStudentID(studentID) {
+        this.studentIDs.push(studentID)
     }
 
     hasStudent(studentID) {
-        for (let i = 0; i < this.students.length; i++) {
-            if (students[i].id == studentID) {
+        for (let i = 0; i < this.studentIDs.length; i++) {
+            if (this.studentIDs[i] == studentID) {
                 return true;
             }
         }
@@ -36,25 +36,21 @@ class Educator {
         return false;
     }
 
-    updateStudentProgress(studentID, courseID, completedModules) {
-        if (!this.hasStudent(student.id)) {
-            return false
-        }
-
-        for (let i = 0; i < this.students.length; i++) {
-            if (student.id == this.students[i].id) {
-
-                for (let j = 0; j < this.students[i].classes.length; j++) {
-                    if (students[i].classes[j].course.id == courseID) 
-                    {
-                        student[i].classes[j].course.addModule(completedModules);
+    updateStudentProgress(student, theClass, updatedCompletedModules) {
+        if (this.hasStudent(student.id)) {
+            for (let i = 0; i < this.studentIDs.length; i++) {
+                if (studentIDs[i] == student.id) {
+                    if (student.hasOwnProperty(theClass)) {
+                        theClass.updateProgress(student.id, updatedCompletedModules);
                     }
                 }
-                break
+            }
+        } else {
+            addStudentID(student.id)
+            if (student.hasOwnProperty(theClass)) {
+                theClass.updateProgress(student.id, updatedCompletedModules);
             }
         }
-        
-        return true
     }
 }
 
@@ -143,8 +139,8 @@ class Class {
         this.lastUpdated = Date.now()
     }
 
-    addStudent(studentID) {
-        this.studentProgress[studentID] = new StudentCourseProgress(this)
+    addStudentID(studentID) {
+        this.studentIDs.push(studentID)
     }
 
     hasStudent(studentID) {
