@@ -4,8 +4,8 @@ import './App.css';
 import { BrowserRouter } from 'react-router-dom'
 import Nav from './components/Nav'
 import { Switch, Route, Link } from 'react-router-dom'
-import Student from './pages/Student'
 import Educator from './pages/Educator'
+import Teacher from './pages/Teacher'
 import Parent from './pages/Parent';
 
 function App() {
@@ -15,7 +15,13 @@ function App() {
         <Nav name="Joao"></Nav>
         <Switch>
           <Route path="/educator">
-            <Educator classes={[
+            <Educator />
+          </Route>
+          <Route path="/parent">
+            <Parent />
+          </Route>
+          <Route path="/teacher">
+            <Teacher classes={[
               {
                 name: "Math A",
                 course: "Mathematics",
@@ -28,14 +34,7 @@ function App() {
                 teacher: "You",
                 lastUpdated: "Last Week"
               }
-            ]}
-              userName="João" />
-          </Route>
-          <Route path="/parent">
-            <Parent />
-          </Route>
-          <Route path="/student">
-            <Student />
+            ]} />
           </Route>
           <Route path="/">
             <Home />
