@@ -1,6 +1,6 @@
 // Created by teacher through their interface
 class Student {
-    constructor(id, name, parents) {
+    constructor(id, name) {
         this.id = id
         this.name = name
         this.classes = []
@@ -25,11 +25,38 @@ class Educator {
     }
 
     addStudent(student) {
-        // ...
+        this.students.push(student)
     }
 
-    updateStudentProgress(student, course, completedModules) {
-        // ...
+    hasStudent(studentID) {
+        for (let i = 0; i < this.students.length; i++) {
+            if (students[i].id == studentID) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    updateStudentProgress(studentID, courseID, completedModules) {
+        if (!this.hasStudent(student.id)) {
+            return false
+        }
+
+        for (let i = 0; i < this.students.length; i++) {
+            if (student.id == this.students[i].id) {
+
+                for (let j = 0; j < this.students[i].classes.length; j++) {
+                    if (students[i].classes[j].course.id == courseID) 
+                    {
+                        student[i].classes[j].course.addModule(completedModules);
+                    }
+                }
+                break
+            }
+        }
+        
+        return true
     }
 }
 
@@ -41,12 +68,37 @@ class Teacher {
         this.classes = []
     }
 
-    updateStudentProgress(student, course, completedModules) {
-        // ...
+    hasStudent(studentID) {
+        for (let classIndex = 0; i < this.classes.length; i++) {
+            if (this.classes[classIndex].hasOwnProperty(studentID)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
+    updateStudentProgress(studentID, courseID, updatedCompletedModules) {
+        for (let i = 0; i < this.classes.length; i++) {
+            if (this.classes[i].hasStudent(studentID)) {
+                this.classes[i].updateProgress(studentID, updatedCompletedModules)
+            }
+        }
+    }
+  
     createClass(course, studentIDs) {
-        // ...
+        let newClass = new Class(course, this, studentIDs);
+        this.classes.push(newClass);
+    }
+
+    getClass(courseID) {
+        for (let i = 0; i < this.classes.length; i++) {
+            if (this.classes[i].course.id == courseID) {
+                return this.classes[i]
+            }
+        }
+
+        return undefined
     }
 }
 
@@ -80,14 +132,14 @@ class StudentCourseProgress {
 
 // Created by teacher when they start a new class
 class Class {
-    constructor(name, course, teacher, students) {
+    constructor(name, course, teacher, studentIDs) {
         this.name = name
         this.course = course
         this.teacher = teacher
 
         this.studentProgress = new Object()
-        for (let i = 0; i < students.length; i++) {
-            this.studentProgress[students[i].id] = new StudentCourseProgress(this)
+        for (let i = 0; i < studentIDs.length; i++) {
+            this.studentProgress[studentIDs[i]] = new StudentCourseProgress(this)
         }
 
         this.lastUpdated = Date.now()
@@ -95,6 +147,10 @@ class Class {
 
     addStudent(studentID) {
         this.studentProgress[studentID] = new StudentCourseProgress(this)
+    }
+
+    hasStudent(studentID) {
+        return this.studentProgress.hasOwnProperty(studentID)
     }
 
     updateProgress(studentID, updatedCompletedModules) {
