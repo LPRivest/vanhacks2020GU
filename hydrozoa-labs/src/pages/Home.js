@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function Home() {
     function handleClick(e) {
@@ -15,8 +15,7 @@ export default function Home() {
         xhr.send(document.getElementById("endpointbody").value)
     }
 
-    function getInfo(request, JSONString){
-
+    function getInfo(request, JSONString) {
         var xhr = new XMLHttpRequest()
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
@@ -29,7 +28,7 @@ export default function Home() {
         xhr.send(JSONString)
     }
 
-    let results = {"id":2,"name":"Tessa","classes":[]}
+    let results = { "id": 2, "name": "Tessa", "classes": [] }
 
     return <> <h2>Home</h2>
         Endpoint name: <input type="text" id="endpointname" /><br /><br />
@@ -39,7 +38,7 @@ export default function Home() {
             <h2 style={{ marginTop: "40px" }}>Account Type:</h2>
         </div>
         <div>
-            <Button variant={"outline-secondary"} onClick={getInfo('getteacher', {"teacherID": 2})} style={{ marginTop: "40px" }}>Educator</Button>
+            <Button variant={"outline-secondary"} onClick={() => getInfo('getteacher', '{ "teacherID": 2 }')} style={{ marginTop: "40px" }}>Educator</Button>
         </div>
         <div>
             <Button variant={"outline-secondary"} onClick={getInfo} style={{ marginTop: "40px" }}>Teacher</Button>
