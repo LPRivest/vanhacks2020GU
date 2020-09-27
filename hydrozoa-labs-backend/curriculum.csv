@@ -1,0 +1,128 @@
+Course_ID,Grade,Course_Name,Modules,Content_ID,Lessons
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Operations on powers with integral exponents ",1,positive and negative exponents
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Operations on powers with integral exponents ",1,exponent laws
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Operations on powers with integral exponents ",1,evaluation using order of operation
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Operations on powers with integral exponents ",1,numerical and variable bases
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Prime factorization ",2,expressing prime factorization of a number using powers
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Prime factorization ",2,identifying the factors of a number
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Prime factorization ",2,greatest common factor (GCF) and least common multiple (LCM)
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Prime factorization ",2,strategies include using factor trees and factor pairs
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Functions and relations: connecting data, graphs, and situations ",3,communicating domain and range in both situational and non-situational contexts
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Functions and relations: connecting data, graphs, and situations ",3,connecting graphs and context
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Functions and relations: connecting data, graphs, and situations ",3,understanding the meaning of a function
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Functions and relations: connecting data, graphs, and situations ",3,identifying whether a relation is a function
+1,10,Foundations of Mathematics and Pre-Calculus 10,"Functions and relations: connecting data, graphs, and situations ",3,using function notation
+1,10,Foundations of Mathematics and Pre-Calculus 10,Linear functions: slope and equations of lines,4,"slope: positive, negative, zero, and undefined"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Linear functions: slope and equations of lines,4,"types of equations of lines (point-slope, slope intercept, and general)"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Linear functions: slope and equations of lines,4,equations of parallel and perpendicular lines
+1,10,Foundations of Mathematics and Pre-Calculus 10,Linear functions: slope and equations of lines,4,equations of horizontal and vertical lines
+1,10,Foundations of Mathematics and Pre-Calculus 10,Linear functions: slope and equations of lines,4,"connections between representations: graphs, tables, equations"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Arithmetic sequences,5,"applying formal language (common difference, first term, general term) to increasing and decreasing linear patterns"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Arithmetic sequences,5,connecting to linear relations
+1,10,Foundations of Mathematics and Pre-Calculus 10,Arithmetic sequences,5,extension: exploring arithmetic series
+1,10,Foundations of Mathematics and Pre-Calculus 10,Systems of linear equations,6,solving graphically
+1,10,Foundations of Mathematics and Pre-Calculus 10,Systems of linear equations,6,"solving algebraically by inspection, substitution, elimination"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Systems of linear equations,6,connecting ordered pair with meaning of an algebraic solution
+1,10,Foundations of Mathematics and Pre-Calculus 10,Systems of linear equations,6,solving problems in situational context
+1,10,Foundations of Mathematics and Pre-Calculus 10,Multiplication of polynomial expressions,7,"applying the distributive property between two polynomials, including trinomials"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Multiplication of polynomial expressions,7,connecting the product of binomials with an area model
+1,10,Foundations of Mathematics and Pre-Calculus 10,Polynomial factoring,8,greatest common factor of a polynomial
+1,10,Foundations of Mathematics and Pre-Calculus 10,Polynomial factoring,8,simpler cases involving trinomials (and difference of squares)
+1,10,Foundations of Mathematics and Pre-Calculus 10,Primary trigonometric ratios,9,"sine, cosine, and tangent ratios"
+1,10,Foundations of Mathematics and Pre-Calculus 10,Primary trigonometric ratios,9,right-triangle problems: determining missing sides and/or angles using trigonometric ratios and the Pythagorean theorem
+1,10,Foundations of Mathematics and Pre-Calculus 10,Primary trigonometric ratios,9,contexts involving direct and indirect measurement 
+1,10,Foundations of Mathematics and Pre-Calculus 10,Financial literacy: gross and net pay ,10,types of income
+1,10,Foundations of Mathematics and Pre-Calculus 10,Financial literacy: gross and net pay ,10,income tax and other deductions
+2,11,Pre-Calculus 11,Real number system,11,Classification
+2,11,Pre-Calculus 11,"Powers with rational exponents
+",12,positive and negative rational exponents
+2,11,Pre-Calculus 11,"Powers with rational exponents
+",12,exponent laws
+2,11,Pre-Calculus 11,"Powers with rational exponents
+",12,evaluation using order of operations
+2,11,Pre-Calculus 11,"Powers with rational exponents
+",12,numerical and variable bases
+2,11,Pre-Calculus 11,Radical operations and equations,13,simplifying radicals
+2,11,Pre-Calculus 11,Radical operations and equations,13,ordering a set of irrational numbers
+2,11,Pre-Calculus 11,Radical operations and equations,13,performing operations with radicals
+2,11,Pre-Calculus 11,Radical operations and equations,13,solving simple (one radical only) equations algebraically and graphically
+2,11,Pre-Calculus 11,Radical operations and equations,13,identifying domain restrictions and extraneous roots of radical equations 
+2,11,Pre-Calculus 11,Polynomial factoring ,14,greatest common factor of a polynomial
+2,11,Pre-Calculus 11,Polynomial factoring ,14,trinomials of the form ax^2 + bx + c
+2,11,Pre-Calculus 11,Polynomial factoring ,14,difference of squares of the form a^2 x^2 - b^2 y^2
+2,11,Pre-Calculus 11,Polynomial factoring ,14,"(optional) extend to a(f(x))^2 + b(f(s)) + c, a^2(f(x))^2 - b^2(f(x))^2"
+2,11,Pre-Calculus 11,Rational expressions and equations ,15,simplifying and applying operations to rational expressions
+2,11,Pre-Calculus 11,Rational expressions and equations ,15,identifying non-permissible values
+2,11,Pre-Calculus 11,Rational expressions and equations ,15,solving equations and identifying any extraneous roots
+2,11,Pre-Calculus 11,Quadratic functions and equations,16,"identifying characteristics of graphs (including domain and range, intercepts, vertex, symmetry), multiple forms, function notation, extrema"
+2,11,Pre-Calculus 11,Quadratic functions and equations,16,exploring transformations
+2,11,Pre-Calculus 11,Quadratic functions and equations,16,"solving equations (e.g., factoring, quadratic formula, completing the square, graphing, square root method)"
+2,11,Pre-Calculus 11,Quadratic functions and equations,16,connecting equation-solving strategies
+2,11,Pre-Calculus 11,Quadratic functions and equations,16,connecting equations with functions — solving problems in context
+2,11,Pre-Calculus 11,Linear and quadratic inequalities,17,"single variable (e.g., 3x - 7 <= -4, x^2 - 5x + 6 >0)"
+2,11,Pre-Calculus 11,Linear and quadratic inequalities,17,domain and range restrictions from problems in situational contexts
+2,11,Pre-Calculus 11,Linear and quadratic inequalities,17,"sign analysis: identifying intervals where a function is positive, negative, or zero"
+2,11,Pre-Calculus 11,Linear and quadratic inequalities,17,"symbolic notation for inequality statements, including interval notation"
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,"use of sine and cosine laws to solve non-right triangles, including ambiguous cases"
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,contextual and non-contextual problems
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,"angles in standard position: degrees, special angles (30-60-90, 45-45-90)"
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,unit circle
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,reference and coterminal angles
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,terminal arm
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,trigonometric ratios
+2,11,Pre-Calculus 11,Trigonometry: non-right triangles and angles in standard position,18,simple trigonometric equations
+2,11,Pre-Calculus 11,"Financial literacy: compound interest, investments, loans",19,compound interest
+2,11,Pre-Calculus 11,"Financial literacy: compound interest, investments, loans",19,"introduction to investments/loans with regular payments, using technology"
+2,11,Pre-Calculus 11,"Financial literacy: compound interest, investments, loans",19,buy/lease
+3,11,Foundations of Mathematics 11,Forms of mathematical reasoning,20,positive and negative exponents
+3,11,Foundations of Mathematics 11,Forms of mathematical reasoning,20,exponent laws
+3,11,Foundations of Mathematics 11,Forms of mathematical reasoning,20,evaluation using order of operations
+3,11,Foundations of Mathematics 11,Forms of mathematical reasoning,20,numerical and variable bases 
+3,11,Foundations of Mathematics 11,Angle relationships,21,expressing prime factorization of a number using powers
+3,11,Foundations of Mathematics 11,Angle relationships,21,identifying the factors of a number
+3,11,Foundations of Mathematics 11,Angle relationships,21,includes greatest common factor (GCF) and least common multiple (LCM)
+3,11,Foundations of Mathematics 11,Angle relationships,21,strategies include using factor trees and factor pairs 
+3,11,Foundations of Mathematics 11,Graphical analysis:,22,communicating domain and range in both situational and non-situational contexts
+3,11,Foundations of Mathematics 11,Graphical analysis:,22,connecting graphs and context
+3,11,Foundations of Mathematics 11,Graphical analysis:,22,understanding the meaning of a function
+3,11,Foundations of Mathematics 11,Graphical analysis:,22,identifying whether a relation is a function
+3,11,Foundations of Mathematics 11,Graphical analysis:,22,using function notation 
+3,11,Foundations of Mathematics 11,Linear inequalities,23,"slope: positive, negative, zero, and undefined"
+3,11,Foundations of Mathematics 11,Linear inequalities,23,"types of equations of lines (point-slope, slope intercept, and general)"
+3,11,Foundations of Mathematics 11,Linear inequalities,23,equations of parallel and perpendicular lines
+3,11,Foundations of Mathematics 11,Linear inequalities,23,equations of horizontal and vertical lines
+3,11,Foundations of Mathematics 11,Linear inequalities,23,"connections between representations: graphs, tables, equations "
+3,11,Foundations of Mathematics 11,Quadratic functions,24,"applying formal language (common difference, first term, general term) to increasing and decreasing linear patterns"
+3,11,Foundations of Mathematics 11,Quadratic functions,24,connecting to linear relations
+3,11,Foundations of Mathematics 11,Quadratic functions,24,extension: exploring arithmetic series 
+3,11,Foundations of Mathematics 11,Systems of equations,25,solving graphically
+3,11,Foundations of Mathematics 11,Systems of equations,25,"solving algebraically by inspection, substitution, elimination"
+3,11,Foundations of Mathematics 11,Systems of equations,25,connecting ordered pair with meaning of an algebraic solution
+3,11,Foundations of Mathematics 11,Systems of equations,25,solving problems in situational contexts 
+3,11,Foundations of Mathematics 11,Optimization,26,
+3,11,Foundations of Mathematics 11,Applications of statistics,27,
+3,11,Foundations of Mathematics 11,Scale models,28,
+3,11,Foundations of Mathematics 11,"Financial literacy: compound interest, investments and loans ",29,
+4,12,Calculus 12,Functions and graphs,30,
+4,12,Calculus 12,Limits: Left and right limits,31,
+4,12,Calculus 12,Limits: Limits to Infinity,32,
+4,12,Calculus 12,Limits: Continuity,33,
+4,12,Calculus 12,Differentiation: Rates of Change,34,
+4,12,Calculus 12,Differentiation: Fundemental Theorem of Calculus,35,
+4,12,Calculus 12,Differentiation: Methods of Integration,36,
+4,12,Calculus 12,Differentiation: Applications,37,
+4,12,Calculus 12,Integration: Approximations,38,
+4,12,Calculus 12,Integration: Fundemental Theorem of Calculs,39,
+4,12,Calculus 12,Integration: Methods of Integration,40,
+4,12,Calculus 12,Integration: Applications,41,
+5,12,Foundations of Mathematics 12,Geometric Explorations: Constructions,42,
+5,12,Foundations of Mathematics 12,Geometric Explorations: Conics,43,
+5,12,Foundations of Mathematics 12,Geometric Explorations: Fractals,44,
+5,12,Foundations of Mathematics 12,Graphical Regresentations of Polynomial Functions,45,
+5,12,Foundations of Mathematics 12,Graphical Regresentations of Logarithmic Functions,46,
+5,12,Foundations of Mathematics 12,Graphical Regresentations of Exponential Functions,47,
+5,12,Foundations of Mathematics 12,Graphical Regresentations of Sinusoidal Functions,48,
+5,12,Foundations of Mathematics 12,Regression Analysis,49,
+5,12,Foundations of Mathematics 12,Cominatorics,50,
+5,12,Foundations of Mathematics 12,"Odds, probabiliy, and expected value",51,
+5,12,Foundations of Mathematics 12,Financial Planning,52,
