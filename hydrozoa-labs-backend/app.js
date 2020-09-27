@@ -62,7 +62,13 @@ app.post('/createeducator', function(req, res) {
     }
     newEducatorID = data.educators.length
 
-    let educator = new model.Educator(newEducatorID, req.body.name, req.body.isParent, [])
+    // Do it this way as a guard against the client forgetting to set isParent
+    let isParent = false
+    if (req.body.isParent) {
+        isParent = true
+    }
+
+    let educator = new model.Educator(newEducatorID, req.body.name, isParent, [])
     data.educators.push(educator)
 
     saveData()
