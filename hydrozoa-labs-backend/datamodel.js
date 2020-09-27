@@ -1,6 +1,6 @@
 // Created by teacher through their interface
 class Student {
-    constructor(id, name, parents) {
+    constructor(id, name) {
         this.id = id
         this.name = name
         this.classes = []

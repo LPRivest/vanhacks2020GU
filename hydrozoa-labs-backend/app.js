@@ -12,56 +12,14 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../hydrozoa-labs/build')))
 app.use(express.json())
 
-// Load in the JSON data
-const jsonPath = path.join(__dirname, 'data.json')
-const jsonFileContents = fs.readFileSync(jsonPath)
-let data = JSON.parse(jsonFileContents)
-
-if (!data.hasOwnProperty('courses')) {
-    // Parse in the CSV curriculum data if we haven't parsed it into our JSON data yet
-    const csvPath = path.join(__dirname, 'curriculum.csv')
-    const csvFileContents = fs.readFileSync(csvPath)
-    const courseDB = csvparse(csvFileContents, {
-        columns: true,
-        skip_empty_lines: true
-    })
-
-    // Populate the in-memory data with the parsed CSV curriculum data
-    data.courses = {}
-    for (let i = 0; i < courseDB.length; i++) {
-        let courseID = parseInt(courseDB[i].Course_ID)
-        if (data.courses.hasOwnProperty(courseID)) {
-            var course = data.courses[courseID]
-        } else {
-            var course = new model.Course(courseID, courseDB[i].Course_Name, courseDB[i].Grade)
-            data.courses[courseID] = course
-        }
-        
-        let moduleID = parseInt(courseDB[i].Content_ID)
-        if (course.hasOwnProperty(moduleID)) {
-            var module = course.modules[moduleID]
-        } else {
-            var module = new model.Module(moduleID, courseDB[i].Modules)
-            course.addModule(module)
-        }
-
-        module.addLesson(courseDB[i].Lessons)
-    }
-}
+DoServerStartupParsing()
 
 app.get('/', function(req, res) {
     //console.log("Received request")
     //res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
-
-// API endpoint to query for data about a particular course
-app.post('/getcourseinfo', function(req, res) {
-    classID = parseInt(req.body.classID)
-    if (data.courses.hasOwnProperty(classID)) {
-        res.send(data.courses[classID])
-    }
-})
+// -------------------- ADD DATA ------------------------
 
 app.post('/addteacher', function(req, res) {
     if (!data.hasOwnProperty('teachers')) {
@@ -121,6 +79,8 @@ app.post('/createstudent', function(req, res) {
     res.send('OK')
 })
 
+// -------------------- MODIFY DATA --------------------------
+
 function getTeacher(teacherID) {
     if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
         // Error
@@ -147,12 +107,6 @@ app.post('/addstudenttoclass', function(req, res) {
     res.send('OK')
 })
 
-app.post('/getstudentprogress', function(req, res) {
-    teacher = getTeacher(req.body.teacherID)
-    theClass = getTeacherClass(teacher, req.body.classIndex)
-    studentProgress = theClass.studentProgress[req.body.studentID]
-    res.send(studentProgress)
-})
 
 app.post('/updatestudentprogress', function(req, res) {
     teacher = getTeacher(req.body.teacherID)
@@ -162,6 +116,63 @@ app.post('/updatestudentprogress', function(req, res) {
     saveData()
     res.send('OK')
 })
+
+// ----------------------------- QUERY DATA -------------------------------
+
+app.post('/getcourseinfo', function(req, res) {
+    classID = parseInt(req.body.classID)
+    if (data.courses.hasOwnProperty(classID)) {
+        res.send(data.courses[classID])
+    }
+})
+
+app.post('/getstudentprogress', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    theClass = getTeacherClass(teacher, req.body.classIndex)
+    studentProgress = theClass.studentProgress[req.body.studentID]
+    res.send(studentProgress)
+})
+
+// ---------------------------- UTILITY FUNCTIONS ---------------------------------
+
+function DoServerStartupParsing() {
+    // Load in the JSON data
+    const jsonPath = path.join(__dirname, 'data.json')
+    const jsonFileContents = fs.readFileSync(jsonPath)
+    let data = JSON.parse(jsonFileContents)
+
+    if (!data.hasOwnProperty('courses')) {
+        // Parse in the CSV curriculum data if we haven't parsed it into our JSON data yet
+        const csvPath = path.join(__dirname, 'curriculum.csv')
+        const csvFileContents = fs.readFileSync(csvPath)
+        const courseDB = csvparse(csvFileContents, {
+            columns: true,
+            skip_empty_lines: true
+        })
+
+        // Populate the in-memory data with the parsed CSV curriculum data
+        data.courses = {}
+        for (let i = 0; i < courseDB.length; i++) {
+            let courseID = parseInt(courseDB[i].Course_ID)
+            if (data.courses.hasOwnProperty(courseID)) {
+                var course = data.courses[courseID]
+            } else {
+                var course = new model.Course(courseID, courseDB[i].Course_Name, courseDB[i].Grade)
+                data.courses[courseID] = course
+            }
+            
+            let moduleID = parseInt(courseDB[i].Content_ID)
+            if (course.hasOwnProperty(moduleID)) {
+                var module = course.modules[moduleID]
+            } else {
+                var module = new model.Module(moduleID, courseDB[i].Modules)
+                course.addModule(module)
+            }
+
+            module.addLesson(courseDB[i].Lessons)
+        }
+    }
+}
 
 function saveData() {
     jsonString = JSON.stringify(data)
