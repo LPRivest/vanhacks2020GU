@@ -9,6 +9,23 @@ import Educator from './pages/Educator'
 import Parent from './pages/Parent';
 
 function App() {
+
+  {/* API ENDPOINT TEST CODE: Uncomment the below to enable */}
+  {/*
+  function handleClick(e) {
+      var xhr = new XMLHttpRequest()
+      xhr.addEventListener('load', () => {
+          if (xhr.status == 200){
+              alert(xhr.responseText)
+          }
+      })
+      // TODO: Don't query localhost!!!
+      xhr.open('POST', "http://localhost:3000/" + document.getElementById("endpointname").value)
+      xhr.setRequestHeader('Content-type', 'application/json')
+      xhr.send(document.getElementById("endpointbody").value)
+  }
+  */}
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -41,6 +58,14 @@ function App() {
             <Home />
           </Route>
         </Switch>
+
+      {/* API ENDPOINT TEST CODE: Uncomment the below to enable */}
+      {/*
+      Endpoint name: <input type="text" id="endpointname" /><br /><br />
+      JSON body: <input type="text" id="endpointbody" /><br /><br />
+      <button onClick={handleClick} style={{marginTop: "40px"}}>Submit API request</button>
+      */}
+
       </div>
     </BrowserRouter>
   );
