@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 export default function Popup(props) {
-    const [show, setShow] = useState(1)
+    const [show, setShow] = useState(true)
 
     let title = '';
     if (props.title) {
