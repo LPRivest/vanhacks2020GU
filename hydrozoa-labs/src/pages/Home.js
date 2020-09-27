@@ -16,7 +16,7 @@ export default function Home() {
     }
 
     function getInfo(){
-        alert("data");
+        //alert("data");
 
         var xhr = new XMLHttpRequest()
         xhr.addEventListener('load', () => {
@@ -29,6 +29,8 @@ export default function Home() {
         xhr.setRequestHeader('Content-type', 'application/json')
         xhr.send(document.getElementById("endpointbody").value)
     }
+
+    let results = {"id":2,"name":"Tessa","classes":[]}
 
     return <> <h2>Home</h2>
         Endpoint name: <input type="text" id="endpointname" /><br /><br />

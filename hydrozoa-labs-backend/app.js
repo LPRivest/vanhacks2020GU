@@ -134,13 +134,13 @@ app.post('/getstudentprogress', function(req, res) {
     res.send(studentProgress)
 })
 
-// JSON input sample: {"teacherID": 5}
+// JSON input sample: {"teacherID": 2}
 app.post('/getteacher', function(req, res) {
     teacher = getTeacher(req.body.teacherID)
     res.send(teacher)
 })
 
-// JSON input sample: {"studentID", 12}
+// JSON input sample: {"studentID", 3}
 app.post('/getstudent', function(req, res) {
     student = getStudent(req.body.studentID)
     res.send(student)

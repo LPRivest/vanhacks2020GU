@@ -36,8 +36,8 @@ function App() {
                 teacher: "You",
                 lastUpdated: "Last Week"
               }
-
             ]}/>
+
           </Route>
           <Route path="/parent">
             <Parent />
