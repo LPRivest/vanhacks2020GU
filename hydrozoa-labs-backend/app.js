@@ -6,7 +6,7 @@ const csvparse = require('csv-parse/lib/sync')
 
 const model = require('./datamodel.js')
 
-const port = 3000;
+const port = 3001;
 
 const app = express();
 app.use(express.static(path.join(__dirname, '../hydrozoa-labs/build')))
