@@ -3,14 +3,17 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const csvparse = require('csv-parse/lib/sync')
+const cors = require('cors')
 
 const model = require('./datamodel.js')
 
 const port = 3001;
 
 const app = express();
+
 app.use(express.static(path.join(__dirname, '../hydrozoa-labs/build')))
 app.use(express.json())
+app.use(cors())
 
 let data = undefined
 
