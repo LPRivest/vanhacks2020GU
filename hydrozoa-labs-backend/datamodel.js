@@ -3,7 +3,6 @@ class Student {
     constructor(id, name, parents) {
         this.id = id
         this.name = name
-        this.parents = parents
         this.classes = []
     }
 
@@ -18,11 +17,15 @@ class Student {
 
 // Created when parent/educator registers for our site
 class Educator {
-    constructor(id, name, students, isParent) {
+    constructor(id, name, isParent) {
         this.id = id
         this.name = name
-        this.students = students
         this.isParent = isParent
+        this.students = [] 
+    }
+
+    addStudent(student) {
+        // ...
     }
 
     updateStudentProgress(student, course, completedModules) {
@@ -32,7 +35,7 @@ class Educator {
 
 // Created when teacher registers for our site
 class Teacher {
-    constructor(id, name, classes) {
+    constructor(id, name) {
         this.id = id
         this.name = name
         this.classes = []
@@ -42,7 +45,7 @@ class Teacher {
         // ...
     }
 
-    createClass(course, students) {
+    createClass(course, studentIDs) {
         // ...
     }
 }
@@ -92,8 +95,8 @@ class Class {
         this.lastUpdated = Date.now()
     }
 
-    addStudent(student) {
-        this.studentProgress[student.id] = new StudentCourseProgress(this)
+    addStudent(studentID) {
+        this.studentProgress[studentID] = new StudentCourseProgress(this)
     }
 }
 

@@ -65,14 +65,76 @@ app.get('/', function(req, res) {
     //res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
+
 // API endpoint to query for data about a particular course
-app.post('/getclass', function(req, res) {
-    console.log(req.body)
+app.post('/getcourseinfo', function(req, res) {
     classID = parseInt(req.body.classID)
     if (courseData.hasOwnProperty(classID)) {
         res.send(courseData[classID])
     }
 })
+
+app.post('/addteacher', function(req, res) {
+    if (!data.hasOwnProperty(teachers)) {
+        data.teachers = []
+    }
+    newTeacherID = data.teachers.length
+
+    let teacher = new Teacher(newTeacherID, req.body.name, [])
+    data.teachers.push(teacher)
+    res.send('OK')
+})
+
+app.post('/addeducator', function(req, res) {
+    if (!data.hasOwnProperty(educators)) {
+        data.educators = []
+    }
+    newEducatorID = data.educators.length
+
+    let educator = new Educator(newEducatorID, req.body.name, req.body.isParent, [])
+    data.educators.push(educator)
+    res.send('OK')
+})
+
+app.post('/createclass', function(req, res) {
+    if (!data.hasOwnProperty(teachers) || data.teachers.length >= req.body.teacherID) {
+        // Error
+        return;
+    }
+    teacher = data.teachers[req.body.teacherID]
+    teacher.createClass(req.body.course, req.body.studentsIDs)
+    res.send('OK')
+})
+
+app.post('/createstudent', function(req, res) {
+    if (!data.hasOwnProperty(students)) {
+        data.students = []
+    }
+    newStudentID = data.students.length
+
+    let student = new Student(newStudentID, req.body.name)
+    data.students.push(student)
+    res.send('OK')
+})
+
+app.post('/addstudenttoclass', function(req, res) {
+    if (!data.hasOwnProperty(teachers) || data.teachers.length >= req.body.teacherID) {
+        // Error
+        return;
+    }
+    teacher = data.teachers[req.body.teacherID]
+
+    if (teacher.classes.length >= req.body.classIndex) {
+        // Error
+        return;
+    }
+    theClass = teacher.classes[req.body.classIndex]
+
+    theClass.addStudent(req.body.studentID)
+    res.send('OK')
+})
+
+
 
 app.post('/save', function(req, res) {
 
