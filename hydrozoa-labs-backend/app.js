@@ -8,6 +8,7 @@ const cors = require('cors')
 const model = require('./datamodel.js')
 
 const port = 3001;
+const jsonPath = path.join(__dirname, 'data.json')
 
 const app = express();
 
@@ -68,11 +69,11 @@ app.post('/createeducator', function(req, res) {
     res.send('OK')
 })
 
-// JSON input sample: {"name": "Ms. Frizzle's Math 11", "courseID": 3, "studentIDs": [1, 4, 8]}
+// JSON input sample: {"name": "Ms. Frizzle's Math 11", "teacherID": 2, "courseID": 3, "studentIDs": [1, 4, 8]}
 // Note that adding student IDs is option when creating a class, students can always be added to the class later
 // via '/addstudenttoclass'
 app.post('/createclass', function(req, res) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
+    if (!data.hasOwnProperty('teachers') || req.body.teacherID >= data.teachers.length) {
         // Error
         return;
     }
@@ -137,10 +138,27 @@ app.post('/getstudentprogress', function(req, res) {
     res.send(studentProgress)
 })
 
+// JSON input sample: {"educatorID: 1"}
+// Returns a JSON representation of an Educator
+app.post('/geteducator', function(req, res) {
+    educatorID = parseInt(req.body.educatorID)
+    res.send(data.educators[educatorID])
+})
+
+// No JSON input needed
+app.post('/geteducators', function(req, res) {
+    res.send(data.educators)
+})
+
 // JSON input sample: {"teacherID": 2}
 app.post('/getteacher', function(req, res) {
     teacher = getTeacher(req.body.teacherID)
     res.send(teacher)
+})
+
+// No JSON input needed
+app.post('/getteachers', function(req, res) {
+    res.send(data.teachers)
 })
 
 // JSON input sample: {"studentID", 3}
@@ -149,11 +167,15 @@ app.post('/getstudent', function(req, res) {
     res.send(student)
 })
 
+// No JSON input needed
+app.post('/getstudents', function(req, res) {
+    res.send(data.students)
+})
+
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
 
 function DoServerStartupParsing() {
     // Load in the JSON data
-    const jsonPath = path.join(__dirname, 'data.json')
     const jsonFileContents = fs.readFileSync(jsonPath)
     data = JSON.parse(jsonFileContents)
 
