@@ -141,9 +141,8 @@ app.post('/getstudentprogress', function(req, res) {
 // Returns a JSON representation of an Educator
 app.post('/geteducator', function(req, res) {
     educatorID = parseInt(req.body.educatorID)
-    if (data.educator.hasOwnProperty(educatorID)) {
-        res.send(data.educator[educatorID])
-    }
+    res.send(data.educators[educatorID])
+    console.log(data.educators)
 })
 
 // JSON input sample: {"teacherID": 5}
