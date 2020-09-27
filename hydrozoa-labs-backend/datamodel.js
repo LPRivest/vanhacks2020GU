@@ -3,15 +3,13 @@ class Student {
     constructor(id, name) {
         this.id = id
         this.name = name
+
+        // Pairs of {teacherID, courseID}
         this.classes = []
     }
 
-    getProgress(courseID) {
-        for (let i = 0; i < this.classes.length; i++) {
-            if (this.classes[i].course.id == courseID) {
-                return this.classes[i].studentProgress[this.id]
-            }
-        }
+    addClass(theClass) {
+        this.classes.push({"teacherID": theClass.teacherID, "courseID": theClass.courseID})
     }
 }
 
@@ -105,7 +103,7 @@ class Teacher {
 // Created automatically when a student is added to a class
 class StudentModuleProgress {
     constructor(module) {
-        this.module = module
+        this.moduleID = moduleID
         
         this.completedLessons = []
         for (let i = 0; i < module.lessons.length; i++) {
@@ -132,10 +130,10 @@ class StudentCourseProgress {
 
 // Created by teacher when they start a new class
 class Class {
-    constructor(name, course, teacher, studentIDs) {
+    constructor(name, courseID, teacherID, studentIDs) {
         this.name = name
-        this.course = course
-        this.teacher = teacher
+        this.courseID = courseID
+        this.teacherID = teacherID
 
         this.studentProgress = new Object()
         for (let i = 0; i < studentIDs.length; i++) {

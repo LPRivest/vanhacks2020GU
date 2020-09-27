@@ -3,14 +3,17 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const csvparse = require('csv-parse/lib/sync')
+const cors = require('cors')
 
 const model = require('./datamodel.js')
 
 const port = 3001;
 
 const app = express();
+
 app.use(express.static(path.join(__dirname, '../hydrozoa-labs/build')))
 app.use(express.json())
+app.use(cors())
 
 let data = undefined
 
@@ -133,6 +136,18 @@ app.post('/getstudentprogress', function(req, res) {
     res.send(studentProgress)
 })
 
+// JSON input sample: {"teacherID": 5}
+app.post('/getteacher', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    res.send(teacher)
+})
+
+// JSON input sample: {"studentID", 12}
+app.post('/getstudent', function(req, res) {
+    student = getStudent(req.body.studentID)
+    res.send(student)
+})
+
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
 
 function DoServerStartupParsing() {
@@ -186,19 +201,27 @@ function saveData() {
 }
 
 function getTeacher(teacherID) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
+    if (!data.hasOwnProperty('teachers') || teacherID >= data.teachers.length) {
         // Error
         return;
     }
-    return data.teachers[req.body.teacherID]
+    return data.teachers[teacherID]
 }
 
 function getTeacherClass(teacher, classIndex) {
-    if (teacher.classes.length >= req.body.classIndex) {
+    if (classIndex >= teacher.classes.length) {
         // Error
         return;
     }
-    return teacher.classes[req.body.classIndex]
+    return teacher.classes[classIndex]
+}
+
+function getStudent(studentID) {
+    if (!data.hasOwnProperty('students') || studentID >= data.students.length) {
+        // Error
+        return;
+    }
+    return data.students[studentID]
 }
 
 app.listen(port)

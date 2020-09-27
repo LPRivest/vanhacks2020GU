@@ -9,7 +9,7 @@ export default function Home() {
             }
         })
         // TODO: Don't query localhost!!!
-        xhr.open('POST', "http://localhost:3000/" + document.getElementById("endpointname").value)
+        xhr.open('POST', "http://localhost:3001/" + document.getElementById("endpointname").value)
         xhr.setRequestHeader('Content-type', 'application/json')
         xhr.send(document.getElementById("endpointbody").value)
     }
