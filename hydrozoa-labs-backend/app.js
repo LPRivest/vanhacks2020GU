@@ -68,11 +68,11 @@ app.post('/createeducator', function(req, res) {
     res.send('OK')
 })
 
-// JSON input sample: {"name": "Ms. Frizzle's Math 11", "courseID": 3, "studentIDs": [1, 4, 8]}
+// JSON input sample: {"name": "Ms. Frizzle's Math 11", "teacherID": 2, "courseID": 3, "studentIDs": [1, 4, 8]}
 // Note that adding student IDs is option when creating a class, students can always be added to the class later
 // via '/addstudenttoclass'
 app.post('/createclass', function(req, res) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
+    if (!data.hasOwnProperty('teachers') || req.body.teacherID >= data.teachers.length) {
         // Error
         return;
     }
