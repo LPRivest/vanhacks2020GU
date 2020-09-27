@@ -121,12 +121,16 @@ app.post('/createstudent', function(req, res) {
     res.send('OK')
 })
 
-app.post('/addstudenttoclass', function(req, res) {
+function getTeacher(teacherID) {
     if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
         // Error
         return;
     }
-    teacher = data.teachers[req.body.teacherID]
+    return data.teachers[req.body.teacherID]
+}
+
+app.post('/addstudenttoclass', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
 
     if (teacher.classes.length >= req.body.classIndex) {
         // Error
@@ -135,6 +139,14 @@ app.post('/addstudenttoclass', function(req, res) {
     theClass = teacher.classes[req.body.classIndex]
 
     theClass.addStudent(req.body.studentID)
+
+    saveData()
+    res.send('OK')
+})
+
+app.post('/classupdate', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+
 
     saveData()
     res.send('OK')
