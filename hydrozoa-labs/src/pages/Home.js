@@ -9,14 +9,13 @@ export default function Home() {
                 alert(xhr.responseText)
             }
         })
-        // TODO: Don't query localhost!!!
         xhr.open('POST', "http://localhost:3001/" + document.getElementById("endpointname").value)
         xhr.setRequestHeader('Content-type', 'application/json')
         xhr.send(document.getElementById("endpointbody").value)
     }
 
     function getInfo(request, JSONString){
-
+        alert('clicked')
         var xhr = new XMLHttpRequest()
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
@@ -27,6 +26,7 @@ export default function Home() {
         xhr.open('POST', "http://localhost:3001/" + request)
         xhr.setRequestHeader('Content-type', 'application/json')
         xhr.send(JSONString)
+
     }
 
     let results = {"id":2,"name":"Tessa","classes":[]}
