@@ -95,8 +95,8 @@ class Teacher {
         }
     }
   
-    createClass(course, studentIDs) {
-        let newClass = new Class(course, this, studentIDs);
+    createClass(name, course, studentIDs) {
+        let newClass = new Class(name, course.id, this.id, studentIDs);
         this.classes.push(newClass);
     }
 
