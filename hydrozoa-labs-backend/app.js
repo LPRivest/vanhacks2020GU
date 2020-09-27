@@ -142,7 +142,7 @@ app.post('/getteacher', function(req, res) {
 // JSON input sample: {"studentID", 12}
 app.post('/getstudent', function(req, res) {
     student = getStudent(req.body.studentID)
-    res.send(teacher)
+    res.send(student)
 })
 
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
@@ -198,7 +198,7 @@ function saveData() {
 }
 
 function getTeacher(teacherID) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= teacherID) {
+    if (!data.hasOwnProperty('teachers') || teacherID >= data.teachers.length) {
         // Error
         return;
     }
@@ -206,7 +206,7 @@ function getTeacher(teacherID) {
 }
 
 function getTeacherClass(teacher, classIndex) {
-    if (teacher.classes.length >= classIndex) {
+    if (classIndex >= teacher.classes.length) {
         // Error
         return;
     }
@@ -214,7 +214,7 @@ function getTeacherClass(teacher, classIndex) {
 }
 
 function getStudent(studentID) {
-    if (!data.hasOwnProperty('students') || data.students.length >= studentID) {
+    if (!data.hasOwnProperty('students') || studentID >= data.students.length) {
         // Error
         return;
     }
