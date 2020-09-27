@@ -79,7 +79,8 @@ class StudentCourseProgress {
 
 // Created by teacher when they start a new class
 class Class {
-    constructor(course, teacher, students) {
+    constructor(name, course, teacher, students) {
+        this.name = name
         this.course = course
         this.teacher = teacher
 
@@ -87,6 +88,8 @@ class Class {
         for (let i = 0; i < students.length; i++) {
             this.studentProgress[students[i].id] = new StudentCourseProgress(this)
         }
+
+        this.lastUpdated = Date.now()
     }
 
     addStudent(student) {
@@ -96,30 +99,28 @@ class Class {
 
 // Added by us? Or teachers who have the ability to add a new course to the database?
 class Course {
-    constructor(id, name, grade, teacher, students) {
+    constructor(id, name, grade) {
         this.id = id
         this.name = name
         this.grade = grade
 
-        // Order matters, this is the order of the modules
-        // Other code refers to modules by index, don't reorder them arbitrarily
-        this.modules = []
+        this.modules = {}
     }
 
     addModule(module) {
-        this.modules.push(module)
+        this.modules[module.id] = module
     }
 }
 
 // Added at the same time as Course
 class Module {
-    constructor(name, description) {
+    constructor(id, name, description) {
+        this.id = id
         this.name = name
-        this.description = description
 
         // Order matters, this is the order of the lessons.
         // Other code refers to lessons by index, don't reorder them arbitrarily
-        this.lessonsDescriptions = []
+        this.lessons = []
     }
 
     addLesson(description) {
