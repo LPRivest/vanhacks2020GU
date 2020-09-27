@@ -69,7 +69,7 @@ app.post('/addteacher', function(req, res) {
     }
     newTeacherID = data.teachers.length
 
-    let teacher = new Teacher(newTeacherID, req.body.name, [])
+    let teacher = new model.Teacher(newTeacherID, req.body.name)
     data.teachers.push(teacher)
 
     saveData()
@@ -82,7 +82,7 @@ app.post('/addeducator', function(req, res) {
     }
     newEducatorID = data.educators.length
 
-    let educator = new Educator(newEducatorID, req.body.name, req.body.isParent, [])
+    let educator = new model.Educator(newEducatorID, req.body.name, req.body.isParent, [])
     data.educators.push(educator)
 
     saveData()
@@ -114,7 +114,7 @@ app.post('/createstudent', function(req, res) {
     }
     newStudentID = data.students.length
 
-    let student = new Student(newStudentID, req.body.name)
+    let student = new model.Student(newStudentID, req.body.name)
     data.students.push(student)
 
     saveData()
@@ -168,10 +168,8 @@ function saveData() {
     fs.writeFile(jsonPath, jsonString, function(err) {
         if (err) {
             console.error(err)
-            return
         } else {
             console.log("Successfully wrote JSON data")
-            res.send("OK")
         }
     })
 }
