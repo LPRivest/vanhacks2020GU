@@ -8,6 +8,7 @@ const cors = require('cors')
 const model = require('./datamodel.js')
 
 const port = 3001;
+const jsonPath = path.join(__dirname, 'data.json')
 
 const app = express();
 
@@ -152,7 +153,6 @@ app.post('/getstudent', function(req, res) {
 
 function DoServerStartupParsing() {
     // Load in the JSON data
-    const jsonPath = path.join(__dirname, 'data.json')
     const jsonFileContents = fs.readFileSync(jsonPath)
     data = JSON.parse(jsonFileContents)
 
