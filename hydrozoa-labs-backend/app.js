@@ -133,6 +133,15 @@ app.post('/getstudentprogress', function(req, res) {
     res.send(studentProgress)
 })
 
+// JSON input sample: {"educatorID: 1"}
+// Returns a JSON representation of an Educator
+app.post('/geteducator', function(req, res) {
+    educatorID = parseInt(req.body.educatorID)
+    if (data.educator.hasOwnProperty(educatorID)) {
+        res.send(data.educator[educatorID])
+    }
+})
+
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
 
 function DoServerStartupParsing() {
