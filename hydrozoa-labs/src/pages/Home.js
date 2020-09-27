@@ -15,8 +15,7 @@ export default function Home() {
         xhr.send(document.getElementById("endpointbody").value)
     }
 
-    function getInfo(){
-        //alert("data");
+    function getInfo(request, JSONString){
 
         var xhr = new XMLHttpRequest()
         xhr.addEventListener('load', () => {
@@ -25,9 +24,9 @@ export default function Home() {
             }
         })
 
-        xhr.open('POST', "http://localhost:3001/" + document.getElementById("endpointname").value)
+        xhr.open('POST', "http://localhost:3001/" + request)
         xhr.setRequestHeader('Content-type', 'application/json')
-        xhr.send(document.getElementById("endpointbody").value)
+        xhr.send(JSONString)
     }
 
     let results = {"id":2,"name":"Tessa","classes":[]}
@@ -40,13 +39,13 @@ export default function Home() {
             <h2 style={{ marginTop: "40px" }}>Account Type:</h2>
         </div>
         <div>
-            <Button variant={"outline-secondary"} onClick={getInfo} style={{ marginTop: "40px" }}>Educator</Button>
+            <Button variant={"outline-secondary"} onClick={getInfo('getteacher', {"teacherID": 2})} style={{ marginTop: "40px" }}>Educator</Button>
         </div>
         <div>
             <Button variant={"outline-secondary"} onClick={getInfo} style={{ marginTop: "40px" }}>Teacher</Button>
         </div>
         <div>
-            <Button variant={"outline-secondary"} onClick={getInfo} style={{ marginTop: "40px" }}>Student</Button>
+            <Button variant={"outline-secondary"} onClick={getInfo} style={{ marginTop: "40px" }}>Parent</Button>
         </div>
 
     </>;
