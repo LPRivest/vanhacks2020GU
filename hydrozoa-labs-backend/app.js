@@ -62,7 +62,13 @@ app.post('/createeducator', function(req, res) {
     }
     newEducatorID = data.educators.length
 
-    let educator = new model.Educator(newEducatorID, req.body.name, req.body.isParent, [])
+    // Do it this way as a guard against the client forgetting to set isParent
+    let isParent = false
+    if (req.body.isParent) {
+        isParent = true
+    }
+
+    let educator = new model.Educator(newEducatorID, req.body.name, isParent, [])
     data.educators.push(educator)
 
     saveData()
@@ -99,6 +105,20 @@ app.post('/addstudenttoclass', function(req, res) {
     theClass = getTeacherClass(teacher, req.body.classIndex)
 
     theClass.addStudent(req.body.studentID)
+
+    saveData()
+    res.send('OK')
+})
+
+// JSON input sample: {"educatorID": 3, "studentID": 4}
+app.post('/addstudenttoeducator', function(req, res) {
+    educator = getEducator(req.body.educatorID)
+    if (educator.hasStudent(req.body.studentID)) {
+        console.log("Can't add student, educator already has that student")
+        return
+    }
+
+    educator.addStudentID(req.body.studentID)
 
     saveData()
     res.send('OK')
@@ -177,7 +197,30 @@ app.post('/getstudents', function(req, res) {
 function DoServerStartupParsing() {
     // Load in the JSON data
     const jsonFileContents = fs.readFileSync(jsonPath)
-    data = JSON.parse(jsonFileContents)
+
+    data = JSON.parse(jsonFileContents, (name, value) => {
+        if (value !== null && typeof value === "object" && !Array.isArray(value) && value.hasOwnProperty("__type")) {
+            if (value.__type === "Teacher") {
+                return model.DeserializeTeacher(value)
+            } else if (value.__type === "Student") {
+                return model.DeserializeStudent(value)
+            } else if (value.__type === "Educator") {
+                return model.DeserializeEducator(value)
+            } else if (value.__type === "Course") {
+                return model.DeserializeCourse(value)
+            } else if (value.__type === "Module") {
+                return model.DeserializeModule(value)
+            } else if (value.__type === "Class") {
+                return model.DeserializeClass(value)
+            } else if (value.__type === "StudentCourseProgress") {
+                return model.DeserializeStudentCourseProgress(value)
+            } else if (value.__type === "StudentModuleProgress") {
+                return model.DeserializeStudentModuleProgress(value)
+            }
+        }
+
+        return value
+    })
 
     if (!data.hasOwnProperty('courses')) {
         // Parse in the CSV curriculum data if we haven't parsed it into our JSON data yet
@@ -229,6 +272,14 @@ function getTeacher(teacherID) {
         return;
     }
     return data.teachers[teacherID]
+}
+
+function getEducator(educatorID) {
+    if (!data.hasOwnProperty('educators') || educatorID >= data.educators.length) {
+        // Error
+        return;
+    }
+    return data.educators[educatorID]
 }
 
 function getTeacherClass(teacher, classIndex) {
