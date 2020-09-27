@@ -3,7 +3,6 @@ class Student {
     constructor(id, name, parents) {
         this.id = id
         this.name = name
-        this.parents = parents
         this.classes = []
     }
 
@@ -18,11 +17,15 @@ class Student {
 
 // Created when parent/educator registers for our site
 class Educator {
-    constructor(id, name, students, isParent) {
+    constructor(id, name, isParent) {
         this.id = id
         this.name = name
-        this.students = students
         this.isParent = isParent
+        this.students = [] 
+    }
+
+    addStudent(student) {
+        // ...
     }
 
     hasStudent(student) {
@@ -43,11 +46,12 @@ class Educator {
         for (let i = 0; i < this.students.length; i++) {
             if(student == this.students[i]) {
 
-                for(let j = 0; j < this.students[i].classes.length; j++)
+                for(let j = 0; j < this.students[i].classes.length; j++) {
                     if(students[i].classes[i].course == course) 
                     {
                         student[i].classes[i].course.addModule(completedModules);
                     }
+                }
             }
         }
     }
@@ -55,7 +59,7 @@ class Educator {
 
 // Created when teacher registers for our site
 class Teacher {
-    constructor(id, name, classes) {
+    constructor(id, name) {
         this.id = id
         this.name = name
         this.classes = []
@@ -81,20 +85,20 @@ class Teacher {
         for (let i = 0; i < this.students.length; i++) {
             if(student == this.students[i]) {
 
-                for(let j = 0; j < this.students[i].classes.length; j++)
+                for(let j = 0; j < this.students[i].classes.length; j++) {
                     if(students[i].classes[i].course == course) 
                     {
                         student[i].classes[i].course.addModule(completedModules);
                     }
+                }
             }
         }
     }
-
-    createClass(course, students) {
-        let newClass = new Class(course, this, students);
+  
+    createClass(course, studentIDs) {
+        let newClass = new Class(course, this, studentIDs);
         this.classes.push(newClass);
     }
-
 }
 
 // Created automatically when a student is added to a class
@@ -122,54 +126,65 @@ class StudentCourseProgress {
         for (let i = 0; i < theClass.course.modules.length; ++i) {
             this.completedModules.push(new StudentModuleProgress(theClass.course.modules[i]))
         }
-
-        console.log(i)
     }
 }
 
 // Created by teacher when they start a new class
 class Class {
-    constructor(course, teacher, students) {
+    constructor(name, course, teacher, studentIDs) {
+        this.name = name
         this.course = course
         this.teacher = teacher
 
         this.studentProgress = new Object()
-        for (let i = 0; i < students.length; i++) {
-            this.studentProgress[students[i].id] = new StudentCourseProgress(this)
+        for (let i = 0; i < studentIDs.length; i++) {
+            this.studentProgress[studentIDs[i]] = new StudentCourseProgress(this)
         }
+
+        this.lastUpdated = Date.now()
     }
 
-    addStudent(student) {
-        this.studentProgress[student.id] = new StudentCourseProgress(this)
+    addStudent(studentID) {
+        this.studentProgress[studentID] = new StudentCourseProgress(this)
+    }
+
+    updateProgress(studentID, updatedCompletedModules) {
+        studentProgress = this.studentProgress[studentID]
+        for (let moduleIndex = 0; moduleIndex < studentProgress.completedModules.length; moduleIndex++) {
+            module = studentProgress.completedModules[i]
+            for (let lessonIndex = 0; lessonIndex < module.completedLessons.length; i++) {
+                module.completedLessons[i] = updatedCompletedModules[i].completedLessons[i]
+            }
+        }
+
+        this.lastUpdated = Date.now()
     }
 }
 
 // Added by us? Or teachers who have the ability to add a new course to the database?
 class Course {
-    constructor(id, name, grade, teacher, students) {
+    constructor(id, name, grade) {
         this.id = id
         this.name = name
         this.grade = grade
 
-        // Order matters, this is the order of the modules
-        // Other code refers to modules by index, don't reorder them arbitrarily
-        this.modules = []
+        this.modules = {}
     }
 
     addModule(module) {
-        this.modules.push(module)
+        this.modules[module.id] = module
     }
 }
 
 // Added at the same time as Course
 class Module {
-    constructor(name, description) {
+    constructor(id, name, description) {
+        this.id = id
         this.name = name
-        this.description = description
 
         // Order matters, this is the order of the lessons.
         // Other code refers to lessons by index, don't reorder them arbitrarily
-        this.lessonsDescriptions = []
+        this.lessons = []
     }
 
     addLesson(description) {
