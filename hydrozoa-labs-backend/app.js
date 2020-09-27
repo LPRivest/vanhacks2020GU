@@ -3,14 +3,17 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const csvparse = require('csv-parse/lib/sync')
+const cors = require('cors')
 
 const model = require('./datamodel.js')
 
 const port = 3001;
 
 const app = express();
+
 app.use(express.static(path.join(__dirname, '../hydrozoa-labs/build')))
 app.use(express.json())
+app.use(cors())
 
 let data = undefined
 
@@ -65,11 +68,11 @@ app.post('/createeducator', function(req, res) {
     res.send('OK')
 })
 
-// JSON input sample: {"name": "Ms. Frizzle's Math 11", "courseID": 3, "studentIDs": [1, 4, 8]}
+// JSON input sample: {"name": "Ms. Frizzle's Math 11", "teacherID": 2, "courseID": 3, "studentIDs": [1, 4, 8]}
 // Note that adding student IDs is option when creating a class, students can always be added to the class later
 // via '/addstudenttoclass'
 app.post('/createclass', function(req, res) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
+    if (!data.hasOwnProperty('teachers') || req.body.teacherID >= data.teachers.length) {
         // Error
         return;
     }
@@ -139,7 +142,17 @@ app.post('/geteducator', function(req, res) {
     educatorID = parseInt(req.body.educatorID)
     if (data.educator.hasOwnProperty(educatorID)) {
         res.send(data.educator[educatorID])
-    }
+
+// JSON input sample: {"teacherID": 5}
+app.post('/getteacher', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    res.send(teacher)
+})
+
+// JSON input sample: {"studentID", 12}
+app.post('/getstudent', function(req, res) {
+    student = getStudent(req.body.studentID)
+    res.send(student)
 })
 
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
@@ -195,19 +208,27 @@ function saveData() {
 }
 
 function getTeacher(teacherID) {
-    if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
+    if (!data.hasOwnProperty('teachers') || teacherID >= data.teachers.length) {
         // Error
         return;
     }
-    return data.teachers[req.body.teacherID]
+    return data.teachers[teacherID]
 }
 
 function getTeacherClass(teacher, classIndex) {
-    if (teacher.classes.length >= req.body.classIndex) {
+    if (classIndex >= teacher.classes.length) {
         // Error
         return;
     }
-    return teacher.classes[req.body.classIndex]
+    return teacher.classes[classIndex]
+}
+
+function getStudent(studentID) {
+    if (!data.hasOwnProperty('students') || studentID >= data.students.length) {
+        // Error
+        return;
+    }
+    return data.students[studentID]
 }
 
 app.listen(port)
