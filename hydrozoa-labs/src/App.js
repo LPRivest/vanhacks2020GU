@@ -9,12 +9,6 @@ import Educator from './pages/Educator'
 import Parent from './pages/Parent';
 
 function App() {
-
-  {/* API ENDPOINT TEST CODE: Uncomment the below to enable */ }
-
-
-
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -47,11 +41,6 @@ function App() {
             <Home />
           </Route>
         </Switch>
-
-        {/* API ENDPOINT TEST CODE: Uncomment the below to enable */}
-
-
-
       </div>
     </BrowserRouter>
   );
