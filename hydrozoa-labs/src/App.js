@@ -15,7 +15,21 @@ function App() {
         <Nav name="Joao"></Nav>
         <Switch>
           <Route path="/educator">
-            <Educator />
+            <Educator classes={[
+              {
+                name: "Math A",
+                course: "Mathematics",
+                teacher: "You",
+                lastUpdated: "Yesterday"
+              },
+              {
+                name: "Math B",
+                course: "Mathematics",
+                teacher: "You",
+                lastUpdated: "Last Week"
+              }
+            ]}
+              userName="João" />
           </Route>
           <Route path="/parent">
             <Parent />
