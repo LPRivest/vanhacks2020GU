@@ -28,8 +28,32 @@ class Educator {
         // ...
     }
 
+    hasStudent(student) {
+        for (let i = 0; i < this.students.length; i++) {
+            if (students[i] == student) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     updateStudentProgress(student, course, completedModules) {
-        // ...
+        if(!this.hasStudent(student)) {
+            this.students.addStudent(student);
+        }
+
+        for (let i = 0; i < this.students.length; i++) {
+            if(student == this.students[i]) {
+
+                for(let j = 0; j < this.students[i].classes.length; j++) {
+                    if(students[i].classes[i].course == course) 
+                    {
+                        student[i].classes[i].course.addModule(completedModules);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -41,12 +65,39 @@ class Teacher {
         this.classes = []
     }
 
-    updateStudentProgress(student, course, completedModules) {
-        // ...
+    //This is the same function as in Educator - Educator should be a superclass to Teacher and Parent
+    hasStudent(student) {
+        for (let i = 0; i < this.students.length; i++) {
+            if (students[i] == student) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
+    //This is the same function as in Educator - Educator should be a superclass to Teacher and Parent
+    updateStudentProgress(student, course, completedModules) {
+        if(!this.hasStudent(student)) {
+            this.students.addStudent(student);
+        }
+
+        for (let i = 0; i < this.students.length; i++) {
+            if(student == this.students[i]) {
+
+                for(let j = 0; j < this.students[i].classes.length; j++) {
+                    if(students[i].classes[i].course == course) 
+                    {
+                        student[i].classes[i].course.addModule(completedModules);
+                    }
+                }
+            }
+        }
+    }
+  
     createClass(course, studentIDs) {
-        // ...
+        let newClass = new Class(course, this, studentIDs);
+        this.classes.push(newClass);
     }
 }
 
@@ -80,14 +131,14 @@ class StudentCourseProgress {
 
 // Created by teacher when they start a new class
 class Class {
-    constructor(name, course, teacher, students) {
+    constructor(name, course, teacher, studentIDs) {
         this.name = name
         this.course = course
         this.teacher = teacher
 
         this.studentProgress = new Object()
-        for (let i = 0; i < students.length; i++) {
-            this.studentProgress[students[i].id] = new StudentCourseProgress(this)
+        for (let i = 0; i < studentIDs.length; i++) {
+            this.studentProgress[studentIDs[i]] = new StudentCourseProgress(this)
         }
 
         this.lastUpdated = Date.now()
