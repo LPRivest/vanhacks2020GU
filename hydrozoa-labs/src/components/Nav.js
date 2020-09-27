@@ -14,7 +14,7 @@ export default function Navigation(props) {
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                     </Nav.Item>
                     <Nav.Item eventkey={2} href="/">
-                        <Nav.Link as={Link} to="/student">Student</Nav.Link>
+                        <Nav.Link as={Link} to="/teacher">Teacher</Nav.Link>
                     </Nav.Item>
                     <Nav.Item eventkey={3} href="/">
                         <Nav.Link as={Link} to="/parent">Parent</Nav.Link>
