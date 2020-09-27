@@ -25,7 +25,7 @@ export default function Popup(props) {
                 {props.children}
             </Modal.Body>
             <Modal.Footer>
-                {props.footer}<Button variant="secondary">Close</Button>
+                {props.footer}<Button variant="secondary" onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
     )
