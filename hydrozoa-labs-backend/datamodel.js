@@ -1,6 +1,7 @@
 // Created by teacher through their interface
 class Student {
     constructor(id, name) {
+        this.__type = "Student"
         this.id = id
         this.name = name
 
@@ -13,9 +14,16 @@ class Student {
     }
 }
 
+function DeserializeStudent(obj) {
+    student = new Student(0, "")
+    Object.assign(student, obj)
+    return student
+}
+
 // Created when parent/educator registers for our site
 class Educator {
     constructor(id, name, isParent) {
+        this.__type = "Educator"
         this.id = id
         this.name = name
         this.isParent = isParent
@@ -54,9 +62,16 @@ class Educator {
     }
 }
 
+function DeserializeEducator(obj) {
+    educator = new Educator(0, "", false)
+    Object.assign(educator, obj)
+    return educator
+}
+
 // Created when teacher registers for our site
 class Teacher {
     constructor(id, name) {
+        this.__type = "Teacher"
         this.id = id
         this.name = name
         this.classes = []
@@ -96,14 +111,23 @@ class Teacher {
     }
 }
 
+function DeserializeTeacher(obj) {
+    teacher = new Teacher(0, "")
+    Object.assign(teacher, obj)
+    return teacher
+}
+
 // Created automatically when a student is added to a class
 class StudentModuleProgress {
     constructor(module) {
-        this.moduleID = moduleID
-        
-        this.completedLessons = []
-        for (let i = 0; i < module.lessons.length; i++) {
-            this.completedLessons.push(false)
+        this.__type = "StudentModuleProgress"
+        if (module) {
+            this.moduleID = module.id
+            
+            this.completedLessons = []
+            for (let i = 0; i < module.lessons.length; i++) {
+                this.completedLessons.push(false)
+            }
         }
     }
 
@@ -112,21 +136,37 @@ class StudentModuleProgress {
     }
 }
 
+function DeserializeStudentModuleProgress(obj) {
+    smp = new StudentModuleProgress(null)
+    Object.assign(smp, obj)
+    return smp
+}
+
 // Created automatically when a student is added to a class
 class StudentCourseProgress {
     constructor(theClass) {
-        this.theClass = theClass
+        this.__type = "StudentCourseProgress"
+        if (theClass) {
+            this.course = theClass.course
 
-        this.completedModules = []
-        for (let i = 0; i < theClass.course.modules.length; ++i) {
-            this.completedModules.push(new StudentModuleProgress(theClass.course.modules[i]))
+            this.completedModules = []
+            for (let i = 0; i < this.course.modules.length; ++i) {
+                this.completedModules.push(new StudentModuleProgress(this.course.modules[i]))
+            }
         }
     }
+}
+
+function DeserializeStudentCourseProgress(obj) {
+    scp = new StudentCourseProgress(null)
+    Object.assign(scp, obj)
+    return scp
 }
 
 // Created by teacher when they start a new class
 class Class {
     constructor(name, courseID, teacherID, studentIDs) {
+        this.__type = "Class"
         this.name = name
         this.courseID = courseID
         this.teacherID = teacherID
@@ -139,8 +179,8 @@ class Class {
         this.lastUpdated = Date.now()
     }
 
-    addStudentID(studentID) {
-        this.studentIDs.push(studentID)
+    addStudent(studentID) {
+        this.studentProgress[studentID] = new StudentCourseProgress(this)
     }
 
     hasStudent(studentID) {
@@ -160,9 +200,16 @@ class Class {
     }
 }
 
+function DeserializeClass(obj) {
+    theClass = new Class("", 0, 0, 0)
+    Object.assign(theClass, obj)
+    return theClass
+}
+
 // Added by us? Or teachers who have the ability to add a new course to the database?
 class Course {
     constructor(id, name, grade) {
+        this.__type = "Course"
         this.id = id
         this.name = name
         this.grade = grade
@@ -175,9 +222,16 @@ class Course {
     }
 }
 
+function DeserializeCourse(obj) {
+    course = new Teacher(0, "", 0)
+    Object.assign(course, obj)
+    return course
+}
+
 // Added at the same time as Course
 class Module {
-    constructor(id, name, description) {
+    constructor(id, name) {
+        this.__type = "Module"
         this.id = id
         this.name = name
 
@@ -191,7 +245,15 @@ class Module {
     }
 }
 
+function DeserializeModule(obj) {
+    module = new Module(0, "")
+    Object.assign(module, obj)
+    return module
+}
+
 module.exports = {
-    Student, Educator, Teacher, StudentModuleProgress, StudentCourseProgress, Class, Course, Module
+    Student, Educator, Teacher, StudentModuleProgress, StudentCourseProgress, Class, Course, Module,
+    DeserializeStudent, DeserializeEducator, DeserializeTeacher, DeserializeStudentModuleProgress,
+    DeserializeStudentCourseProgress, DeserializeClass, DeserializeCourse, DeserializeModule
 }
 
