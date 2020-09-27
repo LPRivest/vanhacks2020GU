@@ -133,6 +133,11 @@ app.post('/getstudentprogress', function(req, res) {
     res.send(studentProgress)
 })
 
+app.post('/getteacher', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    res.send(teacher)
+})
+
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
 
 function DoServerStartupParsing() {
