@@ -122,6 +122,7 @@ app.post('/getcourseinfo', function(req, res) {
     if (data.courses.hasOwnProperty(courseID)) {
         res.send(data.courses[courseID])
     }
+    console.log("clicked")
 })
 
 // JSON input sample: {"teacherID": 1, "classIndex": 3, "studentID": 10}
@@ -160,7 +161,7 @@ function DoServerStartupParsing() {
                 var course = new model.Course(courseID, courseDB[i].Course_Name, courseDB[i].Grade)
                 data.courses[courseID] = course
             }
-            
+
             let moduleID = parseInt(courseDB[i].Content_ID)
             if (course.hasOwnProperty(moduleID)) {
                 var module = course.modules[moduleID]
