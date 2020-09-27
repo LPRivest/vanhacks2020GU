@@ -14,6 +14,10 @@ export default function Teacher(props) {
         setShowModal(clas);
     }
 
+    function handleClose() {
+        setShowModal('')
+    }
+
 
     let classes = props.classes.map((clas) => {
         return (
@@ -29,7 +33,7 @@ export default function Teacher(props) {
 
     let classModal = '';
     if (showModal) {
-        classModal = <ClassCard title={showModal} toggleModal={handleClassClick} />
+        classModal = <ClassCard title={showModal} toggleModal={handleClose} />
     }
 
     return (
