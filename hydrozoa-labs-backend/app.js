@@ -12,6 +12,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../hydrozoa-labs/build')))
 app.use(express.json())
 
+let data = undefined
+
 DoServerStartupParsing()
 
 app.get('/', function(req, res) {
@@ -113,12 +115,12 @@ app.post('/updatestudentprogress', function(req, res) {
 
 // ----------------------------- QUERY DATA -------------------------------
 
-// JSON input sample: {"classID": 3}
+// JSON input sample: {"courseID": 3}
 // Returns a JSON representation of a Course object
 app.post('/getcourseinfo', function(req, res) {
-    classID = parseInt(req.body.classID)
-    if (data.courses.hasOwnProperty(classID)) {
-        res.send(data.courses[classID])
+    courseID = parseInt(req.body.courseID)
+    if (data.courses.hasOwnProperty(courseID)) {
+        res.send(data.courses[courseID])
     }
 })
 
@@ -137,7 +139,7 @@ function DoServerStartupParsing() {
     // Load in the JSON data
     const jsonPath = path.join(__dirname, 'data.json')
     const jsonFileContents = fs.readFileSync(jsonPath)
-    let data = JSON.parse(jsonFileContents)
+    data = JSON.parse(jsonFileContents)
 
     if (!data.hasOwnProperty('courses')) {
         // Parse in the CSV curriculum data if we haven't parsed it into our JSON data yet
