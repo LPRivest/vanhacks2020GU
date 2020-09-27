@@ -75,8 +75,6 @@ class StudentCourseProgress {
         for (let i = 0; i < theClass.course.modules.length; ++i) {
             this.completedModules.push(new StudentModuleProgress(theClass.course.modules[i]))
         }
-
-        console.log(i)
     }
 }
 
@@ -97,6 +95,18 @@ class Class {
 
     addStudent(studentID) {
         this.studentProgress[studentID] = new StudentCourseProgress(this)
+    }
+
+    updateProgress(studentID, updatedCompletedModules) {
+        studentProgress = this.studentProgress[studentID]
+        for (let moduleIndex = 0; moduleIndex < studentProgress.completedModules.length; moduleIndex++) {
+            module = studentProgress.completedModules[i]
+            for (let lessonIndex = 0; lessonIndex < module.completedLessons.length; i++) {
+                module.completedLessons[i] = updatedCompletedModules[i].completedLessons[i]
+            }
+        }
+
+        this.lastUpdated = Date.now()
     }
 }
 

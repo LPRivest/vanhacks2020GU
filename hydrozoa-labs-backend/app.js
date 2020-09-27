@@ -121,20 +121,43 @@ app.post('/createstudent', function(req, res) {
     res.send('OK')
 })
 
-app.post('/addstudenttoclass', function(req, res) {
+function getTeacher(teacherID) {
     if (!data.hasOwnProperty('teachers') || data.teachers.length >= req.body.teacherID) {
         // Error
         return;
     }
-    teacher = data.teachers[req.body.teacherID]
+    return data.teachers[req.body.teacherID]
+}
 
+function getTeacherClass(teacher, classIndex) {
     if (teacher.classes.length >= req.body.classIndex) {
         // Error
         return;
     }
-    theClass = teacher.classes[req.body.classIndex]
+    return teacher.classes[req.body.classIndex]
+}
+
+app.post('/addstudenttoclass', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    theClass = getTeacherClass(teacher, req.body.classIndex)
 
     theClass.addStudent(req.body.studentID)
+
+    saveData()
+    res.send('OK')
+})
+
+app.post('/getstudentprogress', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    theClass = getTeacherClass(teacher, req.body.classIndex)
+    studentProgress = theClass.studentProgress[req.body.studentID]
+    res.send(studentProgress)
+})
+
+app.post('/updatestudentprogress', function(req, res) {
+    teacher = getTeacher(req.body.teacherID)
+    theClass = getTeacherClass(teacher, req.body.classIndex)
+    studentProgress.updateProgress(req.body.studentID, req.mody.completedModules)
 
     saveData()
     res.send('OK')
