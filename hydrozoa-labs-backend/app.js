@@ -142,7 +142,11 @@ app.post('/getstudentprogress', function(req, res) {
 app.post('/geteducator', function(req, res) {
     educatorID = parseInt(req.body.educatorID)
     res.send(data.educators[educatorID])
-    console.log(data.educators)
+})
+
+// No JSON input needed
+app.post('/geteducators', function(req, res) {
+    res.send(data.educators)
 })
 
 // JSON input sample: {"teacherID": 5}
@@ -151,10 +155,20 @@ app.post('/getteacher', function(req, res) {
     res.send(teacher)
 })
 
+// No JSON input needed
+app.post('/getteachers', function(req, res) {
+    res.send(data.teachers)
+})
+
 // JSON input sample: {"studentID", 12}
 app.post('/getstudent', function(req, res) {
     student = getStudent(req.body.studentID)
     res.send(student)
+})
+
+// No JSON input needed
+app.post('/getstudents', function(req, res) {
+    res.send(data.students)
 })
 
 // ---------------------------- UTILITY FUNCTIONS ---------------------------------
