@@ -25,12 +25,12 @@ class Educator {
     }
 
     addStudent(student) {
-        // ...
+        this.students.push(student)
     }
 
-    hasStudent(student) {
+    hasStudent(studentID) {
         for (let i = 0; i < this.students.length; i++) {
-            if (students[i] == student) {
+            if (students[i].id == studentID) {
                 return true;
             }
         }
@@ -38,22 +38,25 @@ class Educator {
         return false;
     }
 
-    updateStudentProgress(student, course, completedModules) {
-        if(!this.hasStudent(student)) {
-            this.students.addStudent(student);
+    updateStudentProgress(studentID, courseID, completedModules) {
+        if (!this.hasStudent(student.id)) {
+            return false
         }
 
         for (let i = 0; i < this.students.length; i++) {
-            if(student == this.students[i]) {
+            if (student.id == this.students[i].id) {
 
-                for(let j = 0; j < this.students[i].classes.length; j++) {
-                    if(students[i].classes[i].course == course) 
+                for (let j = 0; j < this.students[i].classes.length; j++) {
+                    if (students[i].classes[j].course.id == courseID) 
                     {
-                        student[i].classes[i].course.addModule(completedModules);
+                        student[i].classes[j].course.addModule(completedModules);
                     }
                 }
+                break
             }
         }
+        
+        return true
     }
 }
 
@@ -65,10 +68,9 @@ class Teacher {
         this.classes = []
     }
 
-    //This is the same function as in Educator - Educator should be a superclass to Teacher and Parent
-    hasStudent(student) {
-        for (let i = 0; i < this.students.length; i++) {
-            if (students[i] == student) {
+    hasStudent(studentID) {
+        for (let classIndex = 0; i < this.classes.length; i++) {
+            if (this.classes[classIndex].hasOwnProperty(studentID)) {
                 return true;
             }
         }
@@ -76,21 +78,10 @@ class Teacher {
         return false;
     }
 
-    //This is the same function as in Educator - Educator should be a superclass to Teacher and Parent
-    updateStudentProgress(student, course, completedModules) {
-        if(!this.hasStudent(student)) {
-            this.students.addStudent(student);
-        }
-
-        for (let i = 0; i < this.students.length; i++) {
-            if(student == this.students[i]) {
-
-                for(let j = 0; j < this.students[i].classes.length; j++) {
-                    if(students[i].classes[i].course == course) 
-                    {
-                        student[i].classes[i].course.addModule(completedModules);
-                    }
-                }
+    updateStudentProgress(studentID, courseID, updatedCompletedModules) {
+        for (let i = 0; i < this.classes.length; i++) {
+            if (this.classes[i].hasStudent(studentID)) {
+                this.classes[i].updateProgress(studentID, updatedCompletedModules)
             }
         }
     }
@@ -98,6 +89,16 @@ class Teacher {
     createClass(course, studentIDs) {
         let newClass = new Class(course, this, studentIDs);
         this.classes.push(newClass);
+    }
+
+    getClass(courseID) {
+        for (let i = 0; i < this.classes.length; i++) {
+            if (this.classes[i].course.id == courseID) {
+                return this.classes[i]
+            }
+        }
+
+        return undefined
     }
 }
 
@@ -146,6 +147,10 @@ class Class {
 
     addStudent(studentID) {
         this.studentProgress[studentID] = new StudentCourseProgress(this)
+    }
+
+    hasStudent(studentID) {
+        return this.studentProgress.hasOwnProperty(studentID)
     }
 
     updateProgress(studentID, updatedCompletedModules) {
