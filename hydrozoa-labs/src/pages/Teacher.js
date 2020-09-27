@@ -6,7 +6,14 @@ import Col from 'react-bootstrap/Col'
 import PageTemplate from '../components/PageTemplate'
 import ClassCard from '../components/ClassCard'
 
-
+/**
+ *
+ * @param {{
+ *  name: string,
+ *  classes: [],
+ *  id: string
+ * }} props
+ */
 export default function Teacher(props) {
     const [showModal, setShowModal] = useState(0)
 
@@ -18,26 +25,31 @@ export default function Teacher(props) {
         setShowModal('')
     }
 
+    let classes;
+    if (props.classes) {
 
-    let classes = props.classes.map((clas) => {
-        return (
-            <Row><Col>
-                <ClassHelper
-                    class={clas.name}
-                    lastUpdated={clas.lastUpdated}
-                    onClick={handleClassClick}
-                />
-            </Col></Row>
-        )
-    })
-
+        classes = props.classes.map((clas) => {
+            return (
+                <Row><Col>
+                    <ClassHelper
+                        class={clas.name}
+                        lastUpdated={clas.lastUpdated}
+                        onClick={handleClassClick}
+                    />
+                </Col></Row>
+            )
+        })
+    }
     let classModal = '';
     if (showModal) {
         classModal = <ClassCard title={showModal} toggleModal={handleClose} />
     }
 
+    console.log(props.location)
+
     return (
         <PageTemplate>
+            <h1>Hello {props.location.aboutProps.name}</h1>
             {classes}
             {classModal}
         </PageTemplate>

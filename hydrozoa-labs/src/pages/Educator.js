@@ -7,6 +7,16 @@ import Popup from '../components/Popup'
 import Form from 'react-bootstrap/Form'
 import AddForm from '../components/AddForm'
 
+
+/**
+ * 
+ * @param {{
+ *  name: string,
+ *  students: [],
+ *  id: string,
+ *  AddStudent: function
+ * }} props 
+ */
 export default function Educator(props) {
     const [showModal, setShowModal] = useState(0)
 
@@ -19,9 +29,10 @@ export default function Educator(props) {
     }
 
     //TODO - POST add student to educator
-    function handleSubmit(value) {
+    function AddStudent(value) {
         // ...
         //HTTP GET GOES HERE
+        props.AddStudent(value)
         handleClose()
     }
 
@@ -34,6 +45,7 @@ export default function Educator(props) {
     let students;
     if (props.students) {
         props.students.map((s) => {
+            // TODO getStudent info
             return (
                 <Row>
                     <Col>
@@ -54,7 +66,7 @@ export default function Educator(props) {
             <Button onClick={() => handleAddStudent()}>Add Student</Button>
             {showModal ?
                 <Popup title="Add Student" handleClose={handleClose}>
-                    <AddForm label="Add Student" handleSubmit={handleSubmit} />
+                    <AddForm label="Add Student" handleSubmit={AddStudent} />
                 </Popup> : ''}
         </Container>
     )

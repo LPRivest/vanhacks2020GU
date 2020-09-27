@@ -3,15 +3,32 @@ import Button from 'react-bootstrap/esm/Button';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
-import Modal from 'react-bootstrap/Modal'
+import AddForm from './AddForm'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Popup from './Popup'
 
 
-
+/**
+ *
+ * @param {{
+ *  name: string,
+ *  course: string,
+ *  teacher: string,
+ *  students: [],
+ *  AddContent: function
+ * }} props
+ */
 export default function ClassCard(props) {
+    const [addContent, setAddContent] = useState(0)
 
+    function handleSubmit() {
+        setAddContent(0)
+    }
+
+    function handleAddContent() {
+        setAddContent(1)
+    }
 
     let students = "No students";
     if (props.students) {
@@ -23,37 +40,39 @@ export default function ClassCard(props) {
     return (
         <Popup title={props.title} handleClose={props.toggleModal}>
             <Container>
-                <Row>
-                    <Col>
-                        Subject:
+                {addContent ?
+                    <AddForm onSubmit={handleSubmit} label="Add Content" />
+                    : <>
+                        <Row>
+                            <Col>
+                                Subject:
                         </Col>
-                    <Col>
-                        PROPS.SUBJECT
+                            <Col>
+                                {props.courseID}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                Grade:
                         </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        Grade:
+                            <Col>
+                                PROPS.GRADE?
                         </Col>
-                    <Col>
-                        PROPS.GRADE
-                        </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <DropdownButton title="Students">
-                            {students}
-                        </DropdownButton>
-                    </Col>
-                    <Col>
-                        <Button>Add Student</Button>
-                    </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <DropdownButton title="Students">
+                                    {students}
+                                </DropdownButton>
+                            </Col>
 
-                </Row>
-                <Row><Col sm={12}>
-                    <Button>Add Lesson</Button>
-                </Col>
-                </Row>
+                        </Row>
+                        <Row><Col sm={12}>
+                            <Button onClick={handleAddContent}>Add Lesson</Button>
+                        </Col>
+                        </Row>
+                    </>
+                }
             </Container>
         </Popup>
     )

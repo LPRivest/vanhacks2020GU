@@ -14,7 +14,7 @@ export default function Parent() {
     function handleClose() {
         setShowModal(0)
     }
-    function handleSubmit(value) {
+    function CreateStudent(value) {
         // ...
         //HTTP GET GOES HERE
         handleClose()
@@ -26,7 +26,7 @@ export default function Parent() {
             <Button onClick={() => handleCreateStudent()}>Create Student</Button>
             {showModal ?
                 <Popup title="Create Student" handleClose={handleClose}>
-                    <AddForm label="Create Student" handleSubmit={handleSubmit} />
+                    <AddForm label="Create Student" handleSubmit={CreateStudent} />
                 </Popup> : ''}
         </div>
     )

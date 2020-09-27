@@ -11,6 +11,10 @@ import Student from "./pages/Student";
 import Home from "./pages/Home";
 
 function App() {
+
+
+
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -22,21 +26,35 @@ function App() {
           <Route path="/parent">
             <Parent />
           </Route>
-          <Route path="/teacher">
-            <Teacher classes={[
-              {
-                name: "Math A",
-                course: "Mathematics",
-                teacher: "You",
-                lastUpdated: "Yesterday"
-              },
-              {
-                name: "Math B",
-                course: "Mathematics",
-                teacher: "You",
-                lastUpdated: "Last Week"
-              }
-            ]}/>
+          <Route path="/teacher" component={Teacher} classes={[
+            {
+              name: "Math A",
+              course: "Mathematics",
+              teacher: "You",
+              lastUpdated: "Yesterday"
+            },
+            {
+              name: "Math B",
+              course: "Mathematics",
+              teacher: "You",
+              lastUpdated: "Last Week"
+            }
+          ]} >
+            {/* <Teacher
+              classes={[
+                {
+                  name: "Math A",
+                  course: "Mathematics",
+                  teacher: "You",
+                  lastUpdated: "Yesterday"
+                },
+                {
+                  name: "Math B",
+                  course: "Mathematics",
+                  teacher: "You",
+                  lastUpdated: "Last Week"
+                }
+              ]} /> */}
 
           </Route>
           <Route path="/parent">
@@ -44,21 +62,21 @@ function App() {
           </Route>
           <Route path="/student">
             <Student studentProgress={[
-                {
-                    class: "Math A",
-                    course: "Mathematics",
-                    outcome: "Trigonometry",
-                    lesson: "Unit circle",
-                    status: "completed"
-                },
-                {
-                    class: "Math B",
-                    course: "Mathematics",
-                    outcome: "Trigonometry",
-                    lesson: "Special Angle Triangles",
-                    status: "completed"
-                }
-            ]}  />
+              {
+                class: "Math A",
+                course: "Mathematics",
+                outcome: "Trigonometry",
+                lesson: "Unit circle",
+                status: "completed"
+              },
+              {
+                class: "Math B",
+                course: "Mathematics",
+                outcome: "Trigonometry",
+                lesson: "Special Angle Triangles",
+                status: "completed"
+              }
+            ]} />
           </Route>
           <Route path="/">
             <Home />
