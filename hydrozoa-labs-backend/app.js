@@ -90,8 +90,14 @@ app.post('/createclass', function(req, res) {
         return;
     }
 
-    course = data.courses[req.body.courseID]
-    teacher.createClass(req.body.name, course, req.body.studentIDs)
+    console.log(req.body.studentIDs)
+
+    let studentIDs = req.body.studentIDs
+    if (!studentIDs) {
+        studentIDs = []
+    }
+
+    teacher.createClass(req.body.name, req.body.courseID, studentIDs)
 
     saveData()
     res.send('OK')
