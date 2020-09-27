@@ -9,7 +9,6 @@ import AddForm from '../components/AddForm'
 
 export default function Educator(props) {
     const [showModal, setShowModal] = useState(0)
-    const [formInput, setFormInput] = useState('')
 
     function handleAddStudent() {
         setShowModal(1)
@@ -20,9 +19,9 @@ export default function Educator(props) {
     }
 
     //TODO - POST add student to educator
-    function handleSubmit() {
+    function handleSubmit(value) {
         // ...
-        console.log(formInput)
+        //HTTP GET GOES HERE
         handleClose()
     }
 
@@ -55,11 +54,7 @@ export default function Educator(props) {
             <Button onClick={() => handleAddStudent()}>Add Student</Button>
             {showModal ?
                 <Popup title="Add Student" handleClose={handleClose}>
-                    <Form onSubmit={handleSubmit} >
-                        <Form.Label>Student ID</Form.Label>
-                        <Form.Control value={formInput} type="text" size="sm" placeholder="1" onChange={(e) => setFormInput(e.target.value)} />
-                        <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
-                    </Form>
+                    <AddForm label="Add Student" handleSubmit={handleSubmit} />
                 </Popup> : ''}
         </Container>
     )
